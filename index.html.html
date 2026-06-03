@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>10 фильмов после которых хочется говорить</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#080808;color:#f0ede8;font-family:Georgia,serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* скрыть чекбоксы */
+input[type=checkbox]{display:none}
+
+/* ШАПКА */
+.hdr{padding:44px 20px 28px;background:linear-gradient(180deg,#111 0%,#080808 100%)}
+.hdr-eye{font-size:10px;letter-spacing:4px;color:#6a5c48;text-transform:uppercase;margin-bottom:12px}
+.hdr h1{font-size:clamp(26px,7vw,38px);font-weight:400;line-height:1.15;margin-bottom:12px}
+.hdr h1 em{color:#c9a84c;font-style:italic}
+.hdr-sub{font-size:13px;color:#6a5c48;line-height:1.6}
+.hdr-line{width:40px;height:1px;background:linear-gradient(90deg,#c9a84c,transparent);margin-top:18px}
+
+/* КАРТОЧКА */
+.card{border-bottom:1px solid #1c1c1c;position:relative}
+
+/* ЛЕЙБЛ = кнопка */
+.card-label{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 20px;width:100%;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .15s;position:relative;
+}
+.card-label:active{background:#0d0d0d}
+
+/* левая акцентная полоска */
+.card-label::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--ac);opacity:0;transition:opacity .25s;
+}
+input:checked ~ .card-label::before{opacity:1}
+input:checked ~ .card-label{background:#0e0e0e}
+
+/* миниатюра */
+.thumb{
+  width:48px;height:70px;border-radius:5px;overflow:hidden;flex-shrink:0;
+  border:1px solid #1e1e1e;background:var(--color);transition:border-color .25s;
+}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+input:checked ~ .card-label .thumb{border-color:var(--ac)}
+
+/* мета */
+.card-meta{flex:1;min-width:0}
+.rank-row{display:flex;align-items:baseline;gap:8px;margin-bottom:3px}
+.rank{font-size:10px;font-weight:700;letter-spacing:2px;color:#3a3028;transition:color .25s;flex-shrink:0}
+input:checked ~ .card-label .rank{color:var(--ac)}
+.ftitle{font-size:16px;font-weight:400;color:#c8bea8;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;transition:color .2s}
+input:checked ~ .card-label .ftitle{color:#f0ede8;font-weight:700}
+.fdir{font-size:11px;color:#3a3028;font-style:italic}
+.fgenre{font-size:10px;color:#6a5c48;display:inline-block;margin-top:4px}
+
+/* стрелка */
+.arrow{font-size:20px;color:#3a3028;flex-shrink:0;transition:transform .3s,color .25s;line-height:1}
+input:checked ~ .card-label .arrow{transform:rotate(90deg);color:var(--ac)}
+
+/* РАСКРЫВАЮЩАЯСЯ ПАНЕЛЬ */
+.detail{
+  max-height:0;overflow:hidden;
+  transition:max-height .45s cubic-bezier(.4,0,.2,1);
+}
+input:checked ~ .detail{max-height:1100px}
+
+/* герой */
+.hero{
+  display:flex;gap:18px;align-items:flex-start;
+  padding:20px 20px 16px;
+  background:linear-gradient(135deg,var(--color)dd 0%,#0a0808 80%);
+}
+.poster-lg{
+  width:88px;height:130px;border-radius:7px;overflow:hidden;flex-shrink:0;
+  background:var(--color);
+  box-shadow:0 10px 30px var(--color),0 4px 10px rgba(0,0,0,.6);
+  border:1px solid var(--ac);
+}
+.poster-lg img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-meta{flex:1;padding-top:2px}
+.hero-eye{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ac);margin-bottom:6px}
+.hero-title{font-size:20px;font-weight:700;line-height:1.1;margin-bottom:4px}
+.hero-orig{font-size:12px;color:#6a5c48;font-style:italic;margin-bottom:7px}
+.hero-rating{font-size:12px;color:var(--ac);margin-bottom:10px}
+.badge{
+  display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;
+  color:var(--ac);border:1px solid var(--ac);background:rgba(255,255,255,.04);
+}
+
+/* тело */
+.body{padding:16px 20px 24px}
+.desc{font-size:14px;line-height:1.8;color:#9a8870;font-style:italic;margin-bottom:20px}
+.topics-lbl{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#3a3028;margin-bottom:12px}
+.topics{display:flex;flex-direction:column;gap:8px}
+.topic{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:11px 14px;background:#0b0b0b;border-radius:6px;
+  border:1px solid #1c1c1c;border-left:3px solid var(--ac);
+}
+.tnum{font-size:10px;font-weight:700;color:var(--ac);flex-shrink:0;margin-top:2px;letter-spacing:1px}
+.ttxt{font-size:13px;color:#b0a090;line-height:1.55}
+
+/* футер */
+.ftr{padding:24px 20px;border-top:1px solid #1c1c1c;text-align:center;font-size:11px;color:#3a3028;letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-eye">2020 — 2025 &middot; Кино с характером</div>
+  <h1>10 фильмов,<br><em>после которых<br>хочется говорить</em></h1>
+  <p class="hdr-sub">Нажмите на фильм, чтобы узнать о чём он</p>
+  <div class="hdr-line"></div>
+</header>
+
+<div class="card" style="--ac:#E8472A;--color:#7B1A1A">
+  <input type="checkbox" id="c0">
+  <label class="card-label" for="c0">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/M/MV5BNjM2MDE4NzYtMjZkOC00ZjFiLTk3MDgtNGY2NGVmMGU1MDE1XkEyXkFqcGc@._V1_FMjpg_UX500_.jpg" alt="Грешники" loading="lazy">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">01</span>
+        <span class="ftitle">Грешники</span>
+      </div>
+      <div class="fdir">Райан Куглер &middot; 2025</div>
+      <span class="fgenre">Хоррор / Социальная драма</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://m.media-amazon.com/images/M/MV5BNjM2MDE4NzYtMjZkOC00ZjFiLTk3MDgtNGY2NGVmMGU1MDE1XkEyXkFqcGc@._V1_FMjpg_UX500_.jpg" alt="Грешники" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">01 &middot; 2025</div>
+        <div class="hero-title">Грешники</div>
+        <div class="hero-orig">Sinners &middot; Райан Куглер</div>
+        <div class="hero-rating">&#9733; 8.0 IMDb · 97% RT</div>
+        <span class="badge">Хоррор / Социальная драма</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">Два брата-близнеца открывают джаз-клуб на американском Юге 1932 года. В ночь открытия появляются вампиры — но это лишь оболочка. Куглер снял многослойный фильм о расизме, наследии рабства и том, как культура становится оружием сопротивления.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Системное насилие и его источники</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">Музыка как культурная идентичность</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Цена независимости</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">04</span>
+          <span class="ttxt">Кто настоящий монстр</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="--ac:#E8900A;--color:#1A1208">
+  <input type="checkbox" id="c1">
+  <label class="card-label" for="c1">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_FMjpg_UX500_.jpg" alt="Оппенгеймер" loading="lazy">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">02</span>
+        <span class="ftitle">Оппенгеймер</span>
+      </div>
+      <div class="fdir">Кристофер Нолан &middot; 2023</div>
+      <span class="fgenre">Биографическая драма</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_FMjpg_UX500_.jpg" alt="Оппенгеймер" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">02 &middot; 2023</div>
+        <div class="hero-title">Оппенгеймер</div>
+        <div class="hero-orig">Oppenheimer &middot; Кристофер Нолан</div>
+        <div class="hero-rating">&#9733; 8.3 IMDb · 93% RT</div>
+        <span class="badge">Биографическая драма</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">История отца атомной бомбы — физика, который изменил мир, а потом всю жизнь нёс бремя этого решения. Нолан превращает биографию в моральный суд над наукой, политикой и личной ответственностью человека перед историей.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Может ли учёный отвечать за применение своих открытий</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">Цена прогресса</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Политика и наука</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">04</span>
+          <span class="ttxt">Коллективная вина</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="--ac:#C87FE8;--color:#1A0A2E">
+  <input type="checkbox" id="c2">
+  <label class="card-label" for="c2">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/M/MV5BNGIyYWMzNjktNDE3MC00YWQyLWEyMmEtN2ZmNzZhZDk3NGJjXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX500_.jpg" alt="Бедные несчастные" loading="lazy">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">03</span>
+        <span class="ftitle">Бедные несчастные</span>
+      </div>
+      <div class="fdir">Йоргос Лантимос &middot; 2023</div>
+      <span class="fgenre">Фантастическая комедия / Сатира</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://m.media-amazon.com/images/M/MV5BNGIyYWMzNjktNDE3MC00YWQyLWEyMmEtN2ZmNzZhZDk3NGJjXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX500_.jpg" alt="Бедные несчастные" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">03 &middot; 2023</div>
+        <div class="hero-title">Бедные несчастные</div>
+        <div class="hero-orig">Poor Things &middot; Йоргос Лантимос</div>
+        <div class="hero-rating">&#9733; 7.9 IMDb · 92% RT</div>
+        <span class="badge">Фантастическая комедия / Сатира</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">Женщина с мозгом ребёнка в теле взрослой исследует мир без предрассудков и социальных условностей. Современный Франкенштейн — про женскую автономию, сексуальность и право быть собой в мире, который хочет тебя контролировать.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Свобода от социальных норм</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">Сексуальность и мораль</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Кто определяет нормальное</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">04</span>
+          <span class="ttxt">Женская автономия</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="--ac:#7BC67E;--color:#0A1A0A">
+  <input type="checkbox" id="c3">
+  <label class="card-label" for="c3">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODIyMDI5NTk5NzFhXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX500_.jpg" alt="Зона интересов" loading="lazy">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">04</span>
+        <span class="ftitle">Зона интересов</span>
+      </div>
+      <div class="fdir">Джонатан Глейзер &middot; 2023</div>
+      <span class="fgenre">Исторический триллер</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODIyMDI5NTk5NzFhXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX500_.jpg" alt="Зона интересов" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">04 &middot; 2023</div>
+        <div class="hero-title">Зона интересов</div>
+        <div class="hero-orig">The Zone of Interest &middot; Джонатан Глейзер</div>
+        <div class="hero-rating">&#9733; 7.4 IMDb · 89% RT</div>
+        <span class="badge">Исторический триллер</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">Семья коменданта Освенцима живёт в уютном доме по соседству с лагерём смерти — сажает цветы, купается в бассейне. Фильм без единой сцены насилия — и самый страшный фильм о нормализации зла.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Как нормальные люди становятся соучастниками</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">Банальность зла по Ханне Арендт</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Способность не замечать чужую боль</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">04</span>
+          <span class="ttxt">Граница между долгом и соучастием</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="--ac:#4A9FE8;--color:#0A1428">
+  <input type="checkbox" id="c4">
+  <label class="card-label" for="c4">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/M/MV5BZGZiZGFiOGItMDhmNi00YjI3LWJhMzMtMjkwZTZlYjEwNGFjXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX500_.jpg" alt="Прошлые жизни" loading="lazy">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">05</span>
+        <span class="ftitle">Прошлые жизни</span>
+      </div>
+      <div class="fdir">Селин Сон &middot; 2023</div>
+      <span class="fgenre">Романтическая драма</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://m.media-amazon.com/images/M/MV5BZGZiZGFiOGItMDhmNi00YjI3LWJhMzMtMjkwZTZlYjEwNGFjXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX500_.jpg" alt="Прошлые жизни" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">05 &middot; 2023</div>
+        <div class="hero-title">Прошлые жизни</div>
+        <div class="hero-orig">Past Lives &middot; Селин Сон</div>
+        <div class="hero-rating">&#9733; 7.8 IMDb · 98% RT</div>
+        <span class="badge">Романтическая драма</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">Двое детей из Южной Кореи расстаются, когда семья девочки эмигрирует. Спустя 24 года они встречаются снова — она замужем, он приехал попрощаться. Фильм о том, какими могли бы быть наши жизни при другом выборе.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Альтернативные версии своей жизни</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">Понятие ин-ё — кармическая связь</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Выбрать себя или выбрать другого</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">04</span>
+          <span class="ttxt">Иммиграция и потеря корней</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="--ac:#E83CE8;--color:#1A0A28">
+  <input type="checkbox" id="c5">
+  <label class="card-label" for="c5">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMTAzMDg4NzU0._V1_FMjpg_UX500_.jpg" alt="Всё везде и сразу" loading="lazy">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">06</span>
+        <span class="ftitle">Всё везде и сразу</span>
+      </div>
+      <div class="fdir">Дэниел Кван, Дэниел Шайнерт &middot; 2022</div>
+      <span class="fgenre">Фантастика / Семейная драма</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMTAzMDg4NzU0._V1_FMjpg_UX500_.jpg" alt="Всё везде и сразу" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">06 &middot; 2022</div>
+        <div class="hero-title">Всё везде и сразу</div>
+        <div class="hero-orig">Everything Everywhere All At Once &middot; Дэниел Кван, Дэниел Шайнерт</div>
+        <div class="hero-rating">&#9733; 7.8 IMDb · 94% RT</div>
+        <span class="badge">Фантастика / Семейная драма</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">Владелица прачечной обнаруживает бесконечное число параллельных вселенных — и во всех она могла прожить другую жизнь. Безумный экшн оборачивается историей о принятии себя, нигилизме и любви к жизни.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Нигилизм: если всё бессмысленно — что важно?</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">Принятие нереализованных возможностей</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Отношения матери и дочери</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">04</span>
+          <span class="ttxt">Смысл жизни в хаосе выбора</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="--ac:#8AABCC;--color:#080C10">
+  <input type="checkbox" id="c6">
+  <label class="card-label" for="c6">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/M/MV5BOWY4MmFiY2QtMzE1YS00NTg1LWIwOTQtYTI4ZGUzNWIxNTVmXkEyXkFqcGdeQXVyODk2NDQ3MTA@._V1_FMjpg_UX500_.jpg" alt="Тар" loading="lazy">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">07</span>
+        <span class="ftitle">Тар</span>
+      </div>
+      <div class="fdir">Тодд Филд &middot; 2022</div>
+      <span class="fgenre">Психологическая драма</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://m.media-amazon.com/images/M/MV5BOWY4MmFiY2QtMzE1YS00NTg1LWIwOTQtYTI4ZGUzNWIxNTVmXkEyXkFqcGdeQXVyODk2NDQ3MTA@._V1_FMjpg_UX500_.jpg" alt="Тар" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">07 &middot; 2022</div>
+        <div class="hero-title">Тар</div>
+        <div class="hero-orig">TAR &middot; Тодд Филд</div>
+        <div class="hero-rating">&#9733; 7.5 IMDb · 91% RT</div>
+        <span class="badge">Психологическая драма</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">Лидия Тар — первая женщина-дирижёр крупнейшего оркестра Германии. Её карьера рушится после обвинений в злоупотреблении властью. Фильм не выносит приговора — он заставляет тебя самого решать, что справедливо.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Разделение гения и человека</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">MeToo и сложность жертвы и агрессора</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Как власть меняет людей</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">04</span>
+          <span class="ttxt">Может ли искусство оправдать плохого человека</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="--ac:#489fda;--color:#1A1208">
+  <input type="checkbox" id="c7">
+  <label class="card-label" for="c7">
+    <div class="thumb">
+      <img src="https://a.ltrbxd.com/resized/film-poster/4/3/8/5/1/1/438511-soul-0-2000-0-3000-crop.jpg?v=8d0b74f9a8">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">08</span>
+        <span class="ftitle">Душа</span>
+      </div>
+      <div class="fdir">Пит Доктер &middot; 2020</div>
+      <span class="fgenre">Мультфильм / Семейный</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://a.ltrbxd.com/resized/film-poster/4/3/8/5/1/1/438511-soul-0-2000-0-3000-crop.jpg?v=8d0b74f9a8" alt="Душа" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">08 &middot; 2020</div>
+        <div class="hero-title">Душа</div>
+        <div class="hero-orig">Soul &middot; Пит Доктер</div>
+        <div class="hero-rating">&#9733; 8.0 IMDb · 95% RT</div>
+        <span class="badge">Мультфильм / Семейный</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">Уже немолодой школьный учитель музыки Джо Гарднер всю жизнь мечтал выступать на сцене в составе джазового ансамбля. Однажды он успешно проходит прослушивание у легендарной саксофонистки и, возвращаясь домой вне себя от счастья, падает в люк и умирает. Теперь у Джо одна дорога — в Великое После, но он сбегает с идущего в вечность эскалатора и случайно попадает в Великое До. Тут новенькие души обретают себя, и у будущих людей зарождаются увлечения, мечты и интересы. Джо становится наставником упрямой души 22, которая уже много веков не может найти свою искру и отправиться на Землю.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Что такое "Искра"?: призвание или вкус к жизни?</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">Тонкая грань между "потоком" и "заблудшими душами"</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Как найти свою "Искру"?</span>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="--ac:#E84A7A;--color:#1A0A0A">
+  <input type="checkbox" id="c8">
+  <label class="card-label" for="c8">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/M/MV5BNzQxOTIyMTctMDgwNS00MzE0LTlhMGMtMTMzMzFhODI5YzQ4XkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX500_.jpg" alt="Анора" loading="lazy">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">09</span>
+        <span class="ftitle">Анора</span>
+      </div>
+      <div class="fdir">Шон Бейкер &middot; 2024</div>
+      <span class="fgenre">Комедия / Драма</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://m.media-amazon.com/images/M/MV5BNzQxOTIyMTctMDgwNS00MzE0LTlhMGMtMTMzMzFhODI5YzQ4XkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_FMjpg_UX500_.jpg" alt="Анора" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">09 &middot; 2024</div>
+        <div class="hero-title">Анора</div>
+        <div class="hero-orig">Anora &middot; Шон Бейкер</div>
+        <div class="hero-rating">&#9733; 7.8 IMDb · 95% RT</div>
+        <span class="badge">Комедия / Драма</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">Нью-йоркская танцовщица выходит замуж за сына русского олигарха. Когда семья узнаёт — начинается хаос. Золотая пальма Канн 2024: грубая, смешная и честная история о классовых иллюзиях и цене надежды.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Классовое неравенство и иллюзии</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">Любовь против денег и статуса</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Что делает человека достойным</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">04</span>
+          <span class="ttxt">Свобода выбора в несвободных обстоятельствах</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card" style="--ac:#A0A0D0;--color:#0A0A1A">
+  <input type="checkbox" id="c9">
+  <label class="card-label" for="c9">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/M/MV5BMTkxMDYyNjYtZWU2Ny00MWU1LTg4Y2ItOGFlMGM2ZTFmNTIzXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX500_.jpg" alt="Брутализм" loading="lazy">
+    </div>
+    <div class="card-meta">
+      <div class="rank-row">
+        <span class="rank">10</span>
+        <span class="ftitle">Брутализм</span>
+      </div>
+      <div class="fdir">Брэди Корбет &middot; 2024</div>
+      <span class="fgenre">Эпическая драма</span>
+    </div>
+    <span class="arrow">&#8250;</span>
+  </label>
+  <div class="detail">
+    <div class="hero">
+      <div class="poster-lg">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTkxMDYyNjYtZWU2Ny00MWU1LTg4Y2ItOGFlMGM2ZTFmNTIzXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX500_.jpg" alt="Брутализм" loading="lazy">
+      </div>
+      <div class="hero-meta">
+        <div class="hero-eye">10 &middot; 2024</div>
+        <div class="hero-title">Брутализм</div>
+        <div class="hero-orig">The Brutalist &middot; Брэди Корбет</div>
+        <div class="hero-rating">&#9733; 7.6 IMDb · 88% RT</div>
+        <span class="badge">Эпическая драма</span>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">Венгерский архитектор-еврей, переживший Холокост, эмигрирует в США в 1947-м. Три с половиной часа о том, как Америка использует творцов, и о цене, которую платит художник за компромисс со своими ценностями.</p>
+      <div class="topics-lbl">Темы для разговора</div>
+      <div class="topics">
+        <div class="topic">
+          <span class="tnum">01</span>
+          <span class="ttxt">Американская мечта и её изнанка</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">02</span>
+          <span class="ttxt">Искусство и меценатство — кто кому служит?</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">03</span>
+          <span class="ttxt">Травма и творчество</span>
+        </div>
+        <div class="topic">
+          <span class="tnum">04</span>
+          <span class="ttxt">Ассимиляция против сохранения идентичности</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="ftr">Нажмите на фильм, чтобы раскрыть &middot; 2020&ndash;2025</footer>
+</body>
+</html>
